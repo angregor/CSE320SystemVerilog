@@ -6,21 +6,25 @@ parameter clip2 = 1'b1;
 
 always@(posedge clk or posedge reset) begin
   case(reset)
-    1'b0:
+    1'b0: begin
       case(clipNum)
-        clip1:
+        clip1: begin
           A0 = 1'b1;
           A7 = 1'b0;
           cathode = 7'b1001111;
-          clip2:
+        end
+        clip2: begin
           A0 = 1'b0;
           A7 = 1'b1;
           cathode = 7'b0010010;
+        end
       endcase
-    1'b1:
+    end
+    1'b1: begin
       A0 = 1'b0;
       A7 = 1'b0;
       cathode = 7'b1111111;
+    end
   endcase
 end
 
