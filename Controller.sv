@@ -1,7 +1,8 @@
 module Controller(input logic clock, input logic reset,
                   input logic clipPlayNum, input logic clipRecordNum, input logic playButton, input logic recordButton input logic ResetB,
                   input logic secondMarker, output logic enableDes, output logic enableS,
-                  output logic enableTimer, output logic[16:0] startAddress);
+                  output logic enableTimer, output logic[16:0] startAddress, output logic Mem1_EN, output logic Mem2_EN,
+                  output logic Mem1_WEN, output logic Mem2_WEN);
 
 parameter standbyState = 2'b00;
 parameter recordState = 2'b01;
@@ -57,10 +58,34 @@ always@(*) begin
       enableTimer = 1'b0;
     end
     recordState: begin
+      if(clipPlayNum) begin
+        Mem1_EN = 1'b0;
+        Mem1_WEN = 1'b0;
+        Mem2_EN = 1'b1;
+        Mem2_WEN = 1'b1;
+      end
+      else begin
+        Mem1_EN = 1'b1;
+        Mem1_WEN = 1'b1;
+        Mem2_EN = 1'b0;
+        Mem2_WEN = 1'b0;
+      end
       enableDes = 1'b1;
       enableTimer = 1'b1;
     end
     playState: begin
+      if(clipPlayNum) begin
+        Mem1_EN = 1'b0;
+        Mem1_WEN = 1'b0;
+        Mem2_EN = 1'b1;
+        Mem2_WEN = 1'b0;
+        end
+      else begin
+        Mem1_EN = 1'b1;
+        Mem1_WEN = 1'b0;
+        Mem2_EN = 1'b0;
+        Mem2_WEN = 1'b0;
+      end
       enableS = 1'b1;
       enableTimer = 1'b1;
     end
