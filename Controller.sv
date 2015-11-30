@@ -51,13 +51,18 @@ end
 always@(*) begin
   case(state)
     standbyState: begin
-
+      startAddress = 17'b00000000000000000;
+      enableDes = 1'b0;
+      enableS = 1'b0;
+      enableTimer = 1'b0;
     end
     recordState: begin
-
+      enableDes = 1'b1;
+      enableTimer = 1'b1;
     end
     playState: begin
-
+      enableS = 1'b1;
+      enableTimer = 1'b1;
     end
   endcase
 end
