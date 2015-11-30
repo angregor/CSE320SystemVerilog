@@ -12,6 +12,7 @@ always@(posedge clk or posedge reset) begin
       case(recordOrPlay)
         record: begin
           A0 = 1'b1;
+          A7 = 1'b0;
           case(clipNum)
             clip1: begin
               cathode = 7'b1001111;
@@ -22,7 +23,8 @@ always@(posedge clk or posedge reset) begin
           endcase
         end
         play: begin
-          A7 = 1'b1;
+          A0 = 1'b1;
+          A7 = 1'b0;
           case(clipNum)
             clip1: begin
               cathode = 7'b1001111;
