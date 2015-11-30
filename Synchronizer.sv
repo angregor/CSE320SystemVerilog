@@ -1,21 +1,41 @@
-module Syncrhonizer(input logic clock, input logic reset, input logic resetButton, input logic clipNum, input logic playOrRecord, input logic ActionButton,
-  output logic ActionSync, output logic ClipNumSync, output logic PlayOrRecordSync, output logic resetButtonSync);
+module Syncrhonizer(input logic clock, input logic reset, input logic resetButton, input logic clipNumPlay, input logic clipNumRecord, input logic play, input logic record,
+  output logic ClipNumPlaySync, output logic ClipNumRecordSync, output logic PlaySync, output logic RecordSync, output logic resetButtonSync);
 
-always@(resetButton or clipNum or playOrRecord or ActionButton) begin
-  if(clock) begin
-    if(resetButton) begin
-      resetButtonSync = resetButton;
-    end
-    if(playOrRecord) begin
-      PlayOrRecordSync = playOrRecord;
-    end
-    if(clipNum) begin
-      ClipNumSync = clipNum;
-    end
-    if(ActionButton) begin
-      ActionSync = ActionButton;
-    end
-  end
+
+reg playReg;
+reg recordReg;
+reg resetButtonReg;
+reg clipNumPlayReg;
+reg clipNumRecordReg;
+
+always@(play or record or resetButton or clipNumPlay or clipNumRecord) begin
+  if(play)
+    playReg = 1;
+  if(record)
+    recordReg = 1;
+  if(resetButton)
+    resetButtonReg = 1;
+  if(clipNumPlay)
+    clipNumPlayReg = 1;
+  if(clipNumRecord)
+    clipNumRecordReg = 1;
+end
+
+always@(posedge clock) begin
+  PlaySync = playReg;
+  playReg = 0;
+
+  RecordSync = recordReg;
+  recordReg = 0;
+
+  resetButtonSync = resetButtonReg;
+  resetButtonReg = 0;
+
+  ClipNumPlaySync = clipNumPlayReg;
+  clipNumPlayReg = 0;
+
+  ClipNumRecordSync = clipNumRecordReg;
+  clipNumRecordReg = 0;
 end
 
 endmodule
