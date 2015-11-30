@@ -1,5 +1,5 @@
-module Controller(input logic clock, input logic reset, input logic Action,
-                  input logic clipNum, input logic PlayOrRecord, input logic ResetB,
+module Controller(input logic clock, input logic reset,
+                  input logic clipPlayNum, input logic clipRecordNum, input logic playButton, input logic recordButton input logic ResetB,
                   input logic secondMarker, output logic enableDes, output logic enableS,
                   output logic enableTimer, output logic[16:0] startAddress);
 
@@ -13,21 +13,10 @@ logic[1:0] next_state;
 always@(*) begin
   case(state)
     standbyState: begin
-      case(Action)
-        1'b0: begin
-          next_state = standbyState;
-        end
-        1'b1: begin
-          case(PlayOrRecord)
-            1'b0: begin
-              next_state = playState;
-            end
-            1'b1: begin
-              next_state = recordState;
-            end
-          endcase
-        end
-      endcase
+      if(playButton)
+        next_state = playState;
+      else if(recordButton)
+        next_State = recordState;
     end
     recordState: begin
       case(secondMarker)
