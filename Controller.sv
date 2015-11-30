@@ -1,5 +1,5 @@
 module Controller(input logic clock, input logic reset,
-                  input logic clipPlayNum, input logic clipRecordNum, input logic playButton, input logic recordButton input logic ResetB,
+                  input logic clipPlayNum, input logic clipRecordNum, input logic playButton, input logic recordButton,
                   input logic secondMarker, output logic enableDes, output logic enableS,
                   output logic enableTimer, output logic[16:0] startAddress, output logic Mem1_EN, output logic Mem2_EN,
                   output logic Mem1_WEN, output logic Mem2_WEN);
