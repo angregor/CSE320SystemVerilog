@@ -7,16 +7,16 @@ always@(posedge clock) begin
     1'b0: begin
       case(isEnabled)
         1'b0: begin
-          currentCount = currentCount
-          secondMarker = 1'b0;
+          currentCount = currentCount;
+          secondMarker = 0;
         end
         1'b1: begin
           case(currentCount)
             21'b111101000010010000000: begin
-              secondMarker = 1'b1;
+              secondMarker = 1;
             end
             default: begin
-              secondMarker = 1'b0;
+              secondMarker = 0;
               currentCount = currentCount + 1;
             end
           endcase

@@ -5,9 +5,9 @@ always@(posedge clock) begin
   case(reset)
     1'b1: begin
       address = 0;
-      end
+    end
     1'b0: begin
-      if(sDone or desDone) begin
+      if(sDone || desDone) begin
         address = address + 1;
       end
       else begin

@@ -2,7 +2,7 @@ module Syncrhonizer(input logic clock, input logic reset, input logic resetButto
   output logic ActionSync, output logic ClipNumSync, output logic PlayOrRecordSync, output logic resetButtonSync);
 
 always@(resetButton or clipNum or playOrRecord or ActionButton) begin
-  always@(posedge clock) begin
+  if(clock) begin
     if(resetButton) begin
       resetButtonSync = resetButton;
     end
