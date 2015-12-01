@@ -23,7 +23,6 @@
 module main(
     input logic clock,
     input logic reset,
-    input logic reset,
     input logic clipPlayNum,
     input logic clipRecordNum,
     input logic play,
@@ -34,7 +33,7 @@ module main(
     output logic A0, 
     output logic A7)
     );
-    clockScalar(.clk(clock), .reset(reset), scaled_clk(scaled_clk);
+    clockScalar(.clk(clock), .reset(reset), scaled_clk(scaled_clk));
 
     bram memory1(
       .clka(scaled_clk),    // input wire clka
