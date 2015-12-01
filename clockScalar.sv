@@ -1,6 +1,6 @@
 module clockScalar(input logic clk, input logic reset, output logic scaled_clk);
 
-parameter n = 17;
+parameter n = 7;
 reg [n-1:0] count;
 
 always@(posedge clk) begin
