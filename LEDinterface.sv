@@ -5,19 +5,26 @@ module LEDinterface(input logic clock, input logic reset, input logic clipPlayNu
 parameter clip1 = 1'b0;
 parameter clip2 = 1'b1;
 
-logic[3:0] counter = 0;
+logic[24:0] large_counter = 0;
+logic[2:0] small_counter = 0;
 
 always@(posedge clock) begin
-  if(counter == 7) begin
-    counter = 0;
+  if(large_counter = 25'b1111111111111111111111111) begin
+    large_counter = 0;
   end
   else begin
-    counter = counter + 1;
+    large_counter = large_counter + 1;
   end
 end
 
-always@(*) begin
-  case(counter)
+always@(posedge large_counter[14]) begin
+  if(small_counter = 3'b111) begin
+    small_counter = 0;
+  end
+  else begin
+    small_counter = small_counter + 1;
+  end
+  case(small_counter)
     3'b000: begin
       A0 = 1'b0;
       A1 = 1'b1;
@@ -27,73 +34,43 @@ always@(*) begin
       A5 = 1'b1;
       A6 = 1'b1;
       A7 = 1'b1;
-      cathode = 7'b1001111;
+      case(recordNum)
+        clip1: begin
+          cathode = 7'b1001111;
+        end
+        clip2: begin
+          cathode = 7'b0010010;
+        end
+      endcase
     end
-    3'b001: begin
-    A0 = 1'b1;
-    A1 = 1'b1;
-    A2 = 1'b1;
-    A3 = 1'b1;
-    A4 = 1'b1;
-    A5 = 1'b1;
-    A6 = 1'b1;
-    A7 = 1'b1;
-    cathode = 7'b1111111;
+    3'b111: begin
+      A0 = 1'b1;
+      A1 = 1'b1;
+      A2 = 1'b1;
+      A3 = 1'b1;
+      A4 = 1'b1;
+      A5 = 1'b1;
+      A6 = 1'b1;
+      A7 = 1'b0;
+      case(playNum)
+        clip1: begin
+          cathode = 7'b1001111;
+        end
+        clip2: begin
+          cathode = 7'b0010010;
+          end
+      endcase
     end
-    3'b010: begin
-    A0 = 1'b1;
-    A1 = 1'b1;
-    A2 = 1'b1;
-    A3 = 1'b1;
-    A4 = 1'b1;
-    A5 = 1'b1;
-    A6 = 1'b1;
-    A7 = 1'b1;
-    cathode = 7'b1111111;
-    end
-    3'b011: begin
-    A0 = 1'b1;
-    A1 = 1'b1;
-    A2 = 1'b1;
-    A3 = 1'b1;
-    A4 = 1'b1;
-    A5 = 1'b1;
-    A6 = 1'b1;
-    A7 = 1'b1;
-    cathode = 7'b1111111;
-    end
-    3'b100: begin
-    A0 = 1'b1;
-    A1 = 1'b1;
-    A2 = 1'b1;
-    A3 = 1'b1;
-    A4 = 1'b1;
-    A5 = 1'b1;
-    A6 = 1'b1;
-    A7 = 1'b1;
-    cathode = 7'b1111111;
-    end
-    3'b101: begin
-    A0 = 1'b1;
-    A1 = 1'b1;
-    A2 = 1'b1;
-    A3 = 1'b1;
-    A4 = 1'b1;
-    A5 = 1'b1;
-    A6 = 1'b1;
-    A7 = 1'b1;
-    cathode = 7'b1111111;
-    end
-    3'b110: begin
-    A0 = 1'b1;
-    A1 = 1'b1;
-    A2 = 1'b1;
-    A3 = 1'b1;
-    A4 = 1'b1;
-    A5 = 1'b1;
-    A6 = 1'b1;
-    A7 = 1'b1;
-    cathode = 7'b1001111;
+    default: begin
+      A0 = 1'b1;
+      A1 = 1'b1;
+      A2 = 1'b1;
+      A3 = 1'b1;
+      A4 = 1'b1;
+      A5 = 1'b1;
+      A6 = 1'b1;
+      A7 = 1'b0;
+      cathode = 7'b1111111;
     end
   endcase
 end
