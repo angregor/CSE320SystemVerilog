@@ -17,9 +17,9 @@ always@(posedge clock) begin
       end
       else begin
           address = startAddress;
-        end
+      end
     end
-  end
+  endcase
 end
 
 endmodule
