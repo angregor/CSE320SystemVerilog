@@ -19,11 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module Serializer #(
-parameter WORD_LENGTH = 16,
-parameter SYSTEM_FREQUENCY = 100000000,
-parameter SAMPLING_FREQUENCY = 1000000)
-(
+module Serializer(
 	input clock_i, // 100 MHz system clock
 	input enable_i,
 	//output signals
@@ -34,6 +30,10 @@ parameter SAMPLING_FREQUENCY = 1000000)
 	output pwm_audio_o //Output audio data
 );
 	
+	parameter WORD_LENGTH = 16;
+	parameter SYSTEM_FREQUENCY = 100000000;
+	parameter SAMPLING_FREQUENCY = 1000000;
+		
 	integer counter = WORD_LENGTH - 1;
 
 	always @(posedge clock_i) begin
