@@ -71,7 +71,7 @@ module main(input logic clock, input logic reset, input logic clipPlayNum, input
 
     deserializer proj_des( .clock(scaled_clock), .enable(enable_des), .dataIn(audioIn), .dataOut(deser_data), done(des_done), .LRSEL(LR_sel));
 
-    Serializer mySer(.clock_i(scaled_clock), .enable_i(enable_s), .done_o(s_done), data_i())
+    Serializer mySer(.clock_i(scaled_clock), .enable_i(enable_s), .done_o(s_done), Data_i1(data_mem1_out), .Data_i2(data_mem2_out), .clipNum(clipPlayNumSync), .pwm_audio_o(audioOut));
 
     LEDinterface led_interface( .clock(scaled_clock), .reset(reset_sync), .clipPlayNum(clipPlayNumSync), .play(playSync), .recordNum(clipRecordNumSync), .record(recordSync),
                   .cathode(cathode), output logic .A0(A0), .A7(A7);
