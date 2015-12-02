@@ -46,12 +46,12 @@ module Serializer(
 			if (counter == 0) begin
 				done_o <= 1;
 			end
-			if(clipNum) {
+			if(clipNum) begin
 				pwm_audio_o <= Data_i2[counter];
-			}
-			else {
+			end
+			else begin
 				pwm_audio_o <= Data_i1[counter];
-			}
+			end
 			if (counter == 0) begin
 				counter <= WORD_LENGTH-1;
 			end
